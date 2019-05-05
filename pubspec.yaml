@@ -21,6 +21,7 @@ dependencies:
   cloud_firestore: ^0.10.1
   flutter_facebook_login:
   firebase_auth:
+  flutter_auth_buttons:
   
 
   flutter:

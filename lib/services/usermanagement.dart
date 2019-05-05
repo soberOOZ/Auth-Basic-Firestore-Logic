@@ -15,3 +15,19 @@ class UserManagement {
     });
   }
 }
+
+class UserManagementFb {
+  storeNewUser(user, context) {
+    Firestore.instance.collection('/users').add({
+      'email': user.email,
+      'uid': user.uid,
+      'name': user.displayName,
+      'pic': 'configuration left - read about storage'
+    }).then((value) {
+      Navigator.of(context).pop();
+      Navigator.of(context).pushReplacementNamed('/homepage');
+    }).catchError((e) {
+      print(e);
+    });
+  }
+}

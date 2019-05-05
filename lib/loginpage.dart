@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
-
-
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+/* import 'package:flutter_auth_buttons/flutter_auth_buttons.dart'; */
+import 'services/usermanagement.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -14,8 +13,24 @@ class _LoginPageState extends State<LoginPage> {
   String _email;
   String _password;
 
-  //Facebook SignIn Object
   FacebookLogin fbLogin = FacebookLogin();
+
+  /* FirebaseAuth _auth = FirebaseAuth.instance;
+  bool isLogged = false;
+
+  FirebaseUser myUser;
+
+  Future<FirebaseUser> _loginWithFacebook() async{
+    var facebookLogin = FacebookLogin();
+    var result = await facebookLogin.logInWithReadPermissions(['email', 'public_profile']);
+
+    if(result.status == FacebookLoginStatus.loggedIn) {
+      FirebaseUser user = await _auth.signInWithCredential(FacebookAuthProvider.getCredential(accessToken: result.accessToken.token) );
+    }
+  } */
+
+  //Facebook SignIn Object
+  
 
   @override
   Widget build(BuildContext context) {
@@ -70,8 +85,20 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: () {
                   fbLogin.logInWithReadPermissions(['email', 'public_profile'])
                   .then((result) {
-                    
-                    
+                    switch (result.status) {
+                      case FacebookLoginStatus.loggedIn:
+                        FirebaseAuth.instance.signInWithCredential(FacebookAuthProvider.getCredential(accessToken: result.accessToken.token))
+                        .then((signedInUser) {
+                          print('Signed in as ${signedInUser.displayName}');
+                          UserManagementFb().storeNewUser(signedInUser, context);
+                          Navigator.of(context).pushReplacementNamed('/homepage');
+                        }).catchError((e) {
+                          print(e);
+                        });
+                        
+                        break;
+                      default:
+                    }
                   })
                   .catchError((e) {
                     print(e);
