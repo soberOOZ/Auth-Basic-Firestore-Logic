@@ -1,3 +1,4 @@
+import 'package:firestorebasic_raja/services/phoneLogin.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
@@ -113,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                 textColor: Colors.white,
                 elevation: 7.0,
                 onPressed: () {
-                  
+                  PhoneNumberLogin();
                 },
               ),
               SizedBox(height: 15.0),
