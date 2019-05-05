@@ -107,6 +107,17 @@ class _LoginPageState extends State<LoginPage> {
               ),
               SizedBox(height: 15.0),
 
+              RaisedButton(
+                child: Text('LOG IN WITH PHONE NUMBER'),
+                color: Colors.blue,
+                textColor: Colors.white,
+                elevation: 7.0,
+                onPressed: () {
+                  
+                },
+              ),
+              SizedBox(height: 15.0),
+
               Text('Don\'t have an account?'),
               SizedBox(height: 10.0),
               RaisedButton(
